@@ -5,10 +5,11 @@ const newBookFormContainer = document.getElementById("add-book-container");
 const bodyOverlay = document.getElementById("cover-body");
 const cancelNewBook = document.getElementById("cancel-add-button");
 const newBookForm = document.getElementById("add-book-form");
+let removeBookBtns = [];
 
-const newBookTitle = document.getElementById("book-title");
-const newBookAuthor = document.getElementById("book-author");
-const newBookPages = document.getElementById("book-pages");
+let newBookTitle = document.getElementById("book-title");
+let newBookAuthor = document.getElementById("book-author");
+let newBookPages = document.getElementById("book-pages");
 let newBookRead = document.getElementById("read-checkbox"); 
 
 let addingBook = false;
@@ -32,7 +33,7 @@ tableHeader.appendChild(tableStatus);
 tableHeader.appendChild(tableAction);
 
 // store books
-let myLibrary = [{title: "HPTGOF", author: "Rowling", pages: "752"}];
+let myLibrary = [];
 
 // Book object generator
 function Book(title, author, pages) {
@@ -41,21 +42,26 @@ function Book(title, author, pages) {
   this.pages = pages;
 }
 
+// Add Book to library array
 newBookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  updateNewBook();
   addBookToLibrary(e);
   loadLibraryToTable();
 });
-// Add Book to library array
+
 function addBookToLibrary(e) {
   e.preventDefault();
   const addedBook = new Book(newBookTitle.value, newBookAuthor.value, newBookPages.value);
-  console.log(addedBook)
+  newBookTitle.value = "";
+  newBookAuthor.value = "";
+  newBookPages.value = "";
   myLibrary.push(addedBook);
 }
 
 // Loads each book on the page
 function loadLibraryToTable() {
-  
+
   // refresh table
   tableDisplay.innerHTML = "";
   tableDisplay.appendChild(tableHeader);
@@ -75,12 +81,49 @@ function loadLibraryToTable() {
     const blankCell = document.createElement("td");
     blankCell.textContent = "";
 
-    bookRow.appendChild(bookTitle)
-    bookRow.appendChild(bookAuthor)
-    bookRow.appendChild(bookPages)
+    const removeBook = document.createElement("td");
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("remove-book-btn");
+    removeBtn.value = `${myLibrary.indexOf(book)}`;
+    removeBtn.textContent = "Remove";
+    removeBook.appendChild(removeBtn);
+
+    
+
+    bookRow.appendChild(bookTitle);
+    bookRow.appendChild(bookAuthor);
+    bookRow.appendChild(bookPages);
+    bookRow.appendChild(blankCell);
+    bookRow.appendChild(removeBook);
     tableDisplay.appendChild(bookRow);
   });
-  
+  updateRemoveButtons();
+}
+
+// Function to update new buttons
+function updateRemoveButtons() {
+  removeBookBtns = Array.from(document.querySelectorAll(".remove-book-btn"));
+  removeBookBtns.forEach((btn) => {
+    console.log("hello?")
+    console.log(btn)
+    btn.addEventListener("click", removeBookFromLibrary);
+  });
+}
+
+// Function to update newly added book
+function updateNewBook() {
+  newBookTitle = document.getElementById("book-title");
+  newBookAuthor = document.getElementById("book-author");
+  newBookPages = document.getElementById("book-pages");
+  newBookRead = document.getElementById("read-checkbox"); 
+}
+
+// Remove Book from library array 
+function removeBookFromLibrary(e) {
+  let bookIndex = e.target.value;
+  myLibrary.splice(bookIndex, 1);
+  console.log(myLibrary)
+  loadLibraryToTable();
 }
 
 // User wants to add new book
@@ -90,6 +133,7 @@ function showNewBookForm() {
   bodyOverlay.style.display = "block";
 }
 
+// User does not want to add a new book
 cancelNewBook.addEventListener("click", hideNewBookForm);
 function hideNewBookForm() {
   newBookFormContainer.style.display = "none";
