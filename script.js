@@ -15,13 +15,16 @@ let newBookPages = document.getElementById("book-pages");
 const tableHeader = document.createElement("tr");
 const tableTitle = document.createElement("th");
 tableTitle.textContent = "Title";
+tableTitle.style.width = "25vw";
 const tableAuthor = document.createElement("th");
 tableAuthor.textContent = "Author";
 const tablePages = document.createElement("th");
 tablePages.textContent = "Pages";
 const tableStatus = document.createElement("th");
 tableStatus.textContent = "Status";
+tableStatus.style.width = "15%";
 const tableAction = document.createElement("th");
+tableAction.style.width = "15%";
 tableAction.textContent = "Action";
 
 tableHeader.appendChild(tableTitle);
