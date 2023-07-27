@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+
+  <title>My Library</title>
+</head>
+<body>
+  <div id="cover-body">
+  </div>
+  <main>
+    <h3>My Library</h3>
+    <div id="library-display">
+      <div id="control-library">
+        <button id="add-button">New Book</button>
+        <div id="add-book-container" class="flex-container">
+          <form action="" id="add-book-form" class="flex-container">
+            <input type="text" name="book-title" id="book-title" placeholder="TITLE">
+            <input type="text" name="book-author" id="book-author"  placeholder="AUTHOR">
+            <input type="text" name="book-pages" id="book-pages" placeholder="PAGES">
+            <div class="flex-container">
+              <input type="checkbox" name="read-checkbox" id="read-checkbox">
+              <p>Read?</p>
+            </div>
+            <button type="submit">Add book</button>
+          </form>
+          <button id="cancel-add-button">Done</button>
+        </div>
+      </div>
+      <table id="main-table">
+        <!-- <tr id="table-header">
+          <th>Name</th>
+          <th>Author</th>
+          <th>No. of Pages</th>
+          <th>Read Status</th> 
+          <th>Action</th>
+        </tr> -->
+      </table>
+    </div>
+  </main>
+</body>
+</html>

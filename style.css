@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  outline: none;
+}
+
+td, table {
+  border: 1px solid black;
+}
+
+.grid-container {
+  display: grid;
+}
+
+.flex-container {
+  display: flex;
+}
+
+
+/* Pop-up add book form */
+#add-book-container {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  display: none;
+  border: 1px solid black;
+  align-items: center;
+}
+
+#add-book-form {
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+input {
+  padding: 5px 20px 5px 20px;
+}
+
+#cover-body {
+  position: fixed;
+  width: 100vw;
+  background-color: rgb(103, 103, 103);
+  height: 100vh;
+  display: none;
+  opacity: 0.7;
+}
