@@ -3,7 +3,7 @@ const tableDisplay = document.getElementById("main-table");
 const newBook = document.getElementById("add-button");
 const newBookFormContainer = document.getElementById("add-book-container");
 const bodyOverlay = document.getElementById("cover-body");
-const cancelNewBook = document.getElementById("cancel-add-button");
+const cancelNewBook = document.getElementById("done-button");
 const newBookForm = document.getElementById("add-book-form");
 let removeBookBtns = [];
 let statusBtns = [];
@@ -47,7 +47,18 @@ function Book(title, author, pages) {
 Book.prototype.changeStatus = function() {
   let btn = document.getElementById(`statusBtn${myLibrary.indexOf(this)}`)
   let status = btn.textContent;
-  btn.textContent = (status === "Not Read") ? "Read" : "Not Read";
+  if (status == "Not Read") {
+    btn.textContent = "Read";
+    btn.classList.remove("not-read");
+    btn.classList.add("yes-read");
+    this.read = true
+  }
+  else {
+    btn.textContent = "Not Read";
+    btn.classList.remove("yes-read");
+    btn.classList.add("not-read");
+    this.read = false
+  }
 }
 
 // Add Book to library array
@@ -80,6 +91,7 @@ function loadLibraryToTable() {
 
     let bookIndex = myLibrary.indexOf(book);
     const bookRow = document.createElement("tr");
+    bookRow.id = `row${bookIndex}`;
 
     const bookTitle = document.createElement("td");
     bookTitle.textContent = book.title;
@@ -93,9 +105,20 @@ function loadLibraryToTable() {
     const bookStatus = document.createElement("td");
     const statusBtn = document.createElement("button");
     statusBtn.classList.add("change-status-btn");
-    statusBtn.id = `statusBtn${bookIndex}`
-    statusBtn.value = `${bookIndex}`;
-    statusBtn.textContent = "Not Read";
+
+    if(book.read) {
+      statusBtn.classList.add("yes-read");  
+      statusBtn.id = `statusBtn${bookIndex}`;
+      statusBtn.value = `${bookIndex}`;
+      statusBtn.textContent = "Read";
+
+    }
+    else {
+      statusBtn.classList.add("not-read");  
+      statusBtn.id = `statusBtn${bookIndex}`;
+      statusBtn.value = `${bookIndex}`;
+      statusBtn.textContent = "Not Read";
+    }
     bookStatus.appendChild(statusBtn);
 
     const removeBook = document.createElement("td");
@@ -121,7 +144,10 @@ function updateAuxButtons() {
   removeBookBtns = Array.from(document.querySelectorAll(".remove-book-btn"));
   removeBookBtns.forEach((btn) => {
     btn.addEventListener("click", removeBookFromLibrary);
+    btn.onmouseover = (e) => warnRemoval(e);
+    btn.onmouseout = (e) => removeWarnRemoval(e);
   });
+  
   statusBtns = Array.from(document.querySelectorAll(".change-status-btn"));
   statusBtns.forEach((btn) => {
     btn.addEventListener("click", () => {myLibrary[btn.value].changeStatus()});
@@ -143,10 +169,23 @@ function removeBookFromLibrary(e) {
   loadLibraryToTable();
 }
 
+// Warn user by highlighting row
+function warnRemoval(e){
+  let rowIndex = e.target.value;
+  let row = document.getElementById(`row${rowIndex}`);
+  row.classList.add("warn-row");
+}
+
+function removeWarnRemoval(e){
+  let rowIndex = e.target.value;
+  let row = document.getElementById(`row${rowIndex}`);
+  row.classList.remove("warn-row");
+}
+
 // User wants to add new book
 newBook.addEventListener("click", showNewBookForm);
 function showNewBookForm() {
-  newBookFormContainer.style.display = "block";
+  newBookFormContainer.style.display = "flex";
   bodyOverlay.style.display = "block";
 }
 
@@ -158,6 +197,11 @@ function hideNewBookForm() {
 }
 
 window.onload = () => {
+
+  const defaultBook1 = new Book("First Book", "You-Know-Who", "666");
+  myLibrary.push(defaultBook1);
+  const defaultBook2 = new Book("Second Book", "He-Who-Must-Not-Be-Named", "420");
+  myLibrary.push(defaultBook2);
 
   loadLibraryToTable();
 

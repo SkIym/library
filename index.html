@@ -5,25 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
   <link rel="stylesheet" href="style.css">
-
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+  </style>
   <title>My Library</title>
 </head>
 <body>
   <div id="cover-body">
   </div>
   <main class="grid-container">
-    <h3>My Library</h3>
+    <div id="header-container">
+      <h1>my library</h1>
+    </div>
     <div id="library-display" class="flex-container">
       <div id="control-library">
-        <button id="add-button">New Book</button>
+        <button id="add-button">NEW</button>
         <div id="add-book-container" class="flex-container">
           <form action="" id="add-book-form" class="flex-container">
-            <input type="text" name="book-title" id="book-title" placeholder="TITLE">
-            <input type="text" name="book-author" id="book-author"  placeholder="AUTHOR">
-            <input type="text" name="book-pages" id="book-pages" placeholder="PAGES">
-            <button type="submit">Add book</button>
+            <input type="text" name="book-title" id="book-title" placeholder="TITLE" required>
+            <input type="text" name="book-author" id="book-author"  placeholder="AUTHOR" required>
+            <input type="text" name="book-pages" id="book-pages" placeholder="PAGES (no.)" required pattern="[0-9]+">
+            <button id="submit-button" type="submit">ADD</button>
           </form>
-          <button id="cancel-add-button">Done</button>
+          <button id="done-button">Done</button>
         </div>
       </div>
       <table id="main-table">
