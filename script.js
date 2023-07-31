@@ -36,29 +36,32 @@ tableHeader.appendChild(tableAction);
 // store books
 let myLibrary = [];
 
-// Book object generator
-function Book(title, author, pages) {
-  this.title = title; 
-  this.author = author;
-  this.pages = pages;
-}
+// Book object template
+class Book {
+  constructor(title, author, pages) {
+    this.title = title; 
+    this.author = author;
+    this.pages = pages;
+  }
 
-// define changeStatus()
-Book.prototype.changeStatus = function() {
-  let btn = document.getElementById(`statusBtn${myLibrary.indexOf(this)}`)
-  let status = btn.textContent;
-  if (status == "Not Read") {
-    btn.textContent = "Read";
-    btn.classList.remove("not-read");
-    btn.classList.add("yes-read");
-    this.read = true
+  changeStatus() {
+    console.log("Hello?")
+    let btn = document.getElementById(`statusBtn${myLibrary.indexOf(this)}`);
+    let status = btn.textContent;
+    if (status == "Not Read") {
+      btn.textContent = "Read";
+      btn.classList.remove("not-read");
+      btn.classList.add("yes-read");
+      this.read = true
+    }
+    else {
+      btn.textContent = "Not Read";
+      btn.classList.remove("yes-read");
+      btn.classList.add("not-read");
+      this.read = false
+    }
   }
-  else {
-    btn.textContent = "Not Read";
-    btn.classList.remove("yes-read");
-    btn.classList.add("not-read");
-    this.read = false
-  }
+
 }
 
 // Add Book to library array
@@ -136,6 +139,7 @@ function loadLibraryToTable() {
     bookRow.appendChild(removeBook);
     tableDisplay.appendChild(bookRow);
   });
+  console.log(myLibrary)
   updateAuxButtons();
 }
 
