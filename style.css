@@ -80,6 +80,14 @@ input:focus {
   border-bottom: 1px solid rgb(0, 0, 0);
 }
 
+input:invalid {
+  border-bottom: 1px solid rgba(255, 0, 0, 0.193);
+}
+
+input:valid {
+  border-bottom: 1px solid rgba(0, 128, 0, 0.226)
+}
+
 input::placeholder {
   letter-spacing: 0.19rem;
   font-size: 0.7rem;
