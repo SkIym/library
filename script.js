@@ -66,10 +66,7 @@ class Book {
 
 // Add Book to library array
 newBookForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  updateNewBook();
-  addBookToLibrary(e);
-  loadLibraryToTable();
+  validateNewBook(e);
 });
 
 function addBookToLibrary(e) {
@@ -200,13 +197,46 @@ function hideNewBookForm() {
   bodyOverlay.style.display = "none";
 }
 
+function validateBookPages() {
+  const warning = document.querySelector(".invalid-pages");
+  if (newBookPages.validity.patternMismatch) {
+    warning.textContent = 'Must be a valid number';
+  } else {
+    warning.textContent = '';
+  }
+}
+
+function validateBookDeets(e) {
+  console.log(e.target.validity.valueMissing)
+  if (e.target.validity.valueMissing) {
+    e.target.setCustomValidity("Must not be empty");
+  } else {
+    e.target.setCustomValidity('');
+  }
+}
+
+function validateNewBook(e) {
+  author = newBookAuthor.validity.valid;
+  title = newBookTitle.validity.valid;
+  pages = newBookPages.validity.valid;
+  if (!author || !title || !pages) {
+    newBookForm.reportValidity();
+    e.preventDefault();
+  } else {
+    updateNewBook();
+    addBookToLibrary(e);
+    loadLibraryToTable();
+  }
+}
+
 window.onload = () => {
 
   const defaultBook1 = new Book("First Book", "You-Know-Who", "666");
   myLibrary.push(defaultBook1);
   const defaultBook2 = new Book("Second Book", "He-Who-Must-Not-Be-Named", "420");
   myLibrary.push(defaultBook2);
-
+  newBookAuthor.oninput = validateBookDeets;
+  newBookPages.oninput = validateBookPages;
   loadLibraryToTable();
 
 };

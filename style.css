@@ -54,6 +54,7 @@ body {
   color: rgb(0, 0, 186);
 }
 
+
 input {
   width: 100%;
   padding: 10px 0 10px 0;
@@ -61,6 +62,18 @@ input {
   border-bottom: 1px solid rgb(212, 212, 212);
   margin-bottom: 40px;
   transition: 0.2s ease-in-out;
+}
+
+#book-pages {
+  margin-bottom: 0;
+}
+
+.invalid-pages {
+  margin-bottom: 40px;
+  align-self: start;
+  color: #FF4D6D;
+  font-size: 0.7rem;
+  padding: 5px 0;
 }
 
 input:focus {

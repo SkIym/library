@@ -21,10 +21,11 @@
       <div id="control-library">
         <button id="add-button">NEW</button>
         <div id="add-book-container" class="flex-container">
-          <form action="" id="add-book-form" class="flex-container">
+          <form novalidate id="add-book-form" class="flex-container">
             <input type="text" name="book-title" id="book-title" placeholder="TITLE" required>
             <input type="text" name="book-author" id="book-author"  placeholder="AUTHOR" required>
             <input type="text" name="book-pages" id="book-pages" placeholder="PAGES (no.)" required pattern="[0-9]+">
+            <span class="invalid-pages"></span>
             <button id="submit-button" type="submit">ADD</button>
           </form>
           <button id="done-button">Done</button>
